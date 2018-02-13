@@ -27,37 +27,13 @@ namespace TileServerCore.Controllers
                 {
                     var selectCommand = connection.CreateCommand();
                     selectCommand.Transaction = transaction;
+                    //SQL injection not a concern b/c these are ints
                     selectCommand.CommandText = $"SELECT tile_data FROM `tiles` where zoom_level = {z} and tile_column = {x} and tile_row = {y}";
                     var tileData = (byte[]) selectCommand.ExecuteScalar();
                     return tileData;
                 }
             }
             
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
