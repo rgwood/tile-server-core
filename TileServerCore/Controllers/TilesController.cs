@@ -16,7 +16,7 @@ namespace TileServerCore.Controllers
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
-                DataSource = @"%HOME%\tiles\parcels.mbtiles"
+                DataSource = @"d:\home\tiles\parcels.mbtiles"
             };
 
             using (var connection = new SqliteConnection(connectionStringBuilder.ToString()))
