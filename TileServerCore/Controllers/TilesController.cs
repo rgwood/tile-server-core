@@ -4,19 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Options;
 
 namespace TileServerCore.Controllers
 {
     [Route("api/[controller]")]
     public class TilesController : Controller
     {
+        private readonly AppSettings _appSettings;
+
+        public TilesController(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+        }
+
         // GET tiles/z/x/y
         [HttpGet("{z}/{x}/{y}")]
         public byte[] Get(int z, int x, int y)
         {
+            Console.WriteLine($"Tile path: {_appSettings.TilePath}");
             var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
-                DataSource = @"d:\home\tiles\parcels.mbtiles"
+                DataSource = _appSettings.TilePath
             };
 
             using (var connection = new SqliteConnection(connectionStringBuilder.ToString()))
